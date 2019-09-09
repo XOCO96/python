@@ -5,8 +5,11 @@ clients = 'pablo, ricardo, '
 def create_client(client_name):
     global clients             #global permite que la funcion haga manejo de la variable clients
 
-    clients += client_name
-    _add_comma()
+    if client_name not in clients:
+        clients += client_name
+        _add_comma()
+    else:
+        print('Client already is in the client\'s list')
 
 
 def list_clients():
