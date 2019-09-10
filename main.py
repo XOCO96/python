@@ -27,7 +27,12 @@ def create_client(client):
 
 def list_clients():
     for idx, client in enumerate(clients):
-        print('{}:{}'.format(idx, client['name']))
+        print('{uid} | {name} | {company} | {email} | {position}'.format(
+            uid=idx,
+            name=client['name'],
+            company=client['company'],
+            email=client['email'],
+            position=client['position']))
 
 
 def update_client(client_name, update_client_name):
@@ -100,6 +105,7 @@ if __name__ == '__main__':       #punto de partida (la condicion if para que se 
         client = {
             'name': _get_client_field('name'),
             'company': _get_client_field('company'),
+            'email': _get_client_field('email'),
             'psotion': _get_client_field('position'),
         }
         create_client(client)
