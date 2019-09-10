@@ -27,7 +27,7 @@ def create_client(client):
 
 def list_clients():
     for idx, client in enumerate(clients):
-        print('{}:{}'.format(idx, client))
+        print('{}:{}'.format(idx, client['name']))
 
 
 def update_client(client_name, update_client_name):
@@ -72,7 +72,7 @@ def _get_client_field(field_name):
     field = None
     while not field:
         field = input('what is the client {}?'.format(field_name))
-    return field_name
+    return field
 
 def _get_client_name():
     client_name = None
