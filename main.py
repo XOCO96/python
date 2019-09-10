@@ -1,13 +1,26 @@
 import sys
 
-clients = ['pablo', 'ricardo']
+clients = [
+    {
+        'name': 'pablo',
+        'company': 'google',
+        'email': 'pablo@google.com',
+        'position': 'software engineer',
+    },
+    {
+        'name': 'ricardo',
+        'company': 'facebook',
+        'email': 'ricardo@facebook.com',
+        'position': 'data engineer',
+    }
+]
 
 
-def create_client(client_name):
+def create_client(client):
     global clients             #global permite que la funcion haga manejo de la variable clients
 
-    if client_name not in clients:
-        clients.append(client_name)
+    if client not in clients:
+        clients.append(client)
     else:
         print('Client already is in the client\'s list')
 
@@ -55,6 +68,12 @@ def _print_welcome():
     print('[S]earch client')
 
 
+def _get_client_field(field_name):
+    field = None
+    while not field:
+        field = input('what is the client {}?'.format(field_name))
+    return field_name
+
 def _get_client_name():
     client_name = None
 
@@ -78,8 +97,12 @@ if __name__ == '__main__':       #punto de partida (la condicion if para que se 
     command = command.upper()
 
     if command == 'C':
-        client_name = _get_client_name()
-        create_client(client_name)
+        client = {
+            'name': _get_client_field('name'),
+            'company': _get_client_field('company'),
+            'psotion': _get_client_field('position'),
+        }
+        create_client(client)
         list_clients()
     elif command == 'L':
         list_clients()
