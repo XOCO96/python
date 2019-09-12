@@ -26,7 +26,7 @@ def _save_clients_to_storage():
         writer.writerows(clients)
 
         os.remove(CLIENT_TABLE)
-        os.rename(tmp_table_name, CLIENT_TABLE)
+    os.rename(tmp_table_name, CLIENT_TABLE)
 
 
 def create_client(client):
