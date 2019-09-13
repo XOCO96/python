@@ -1,7 +1,7 @@
 import click
 
 from clients.services import ClientService
-from clients.models import ClientModel
+from clients.models import Client
 
 @click.group()
 def clients():
@@ -17,27 +17,42 @@ def clients():
 @click.option('-c', '--company',
                 type=str,
                 prompt=True,
-                help= 'The clients name')
+                help= 'The clients company')
 @click.option('-e', '--email',
                 type=str,
                 prompt=True,
-                help= 'The clients name')
+                help= 'The clients email')
 @click.option('-p', '--position',
                 type=str,
                 prompt=True,
-                help= 'The clients name')
+                help= 'The clients position')
 @click.pass_context
 def create(ctx, name, company, email, position):
     """creates a new client"""
-    client = client(name,company, email, position)
-    client.services = ClientService(ctx)
+    client = Client(name, company, email, position)
+    client_service = ClientService(ctx.obj['Clients_table'])
+
+    client_service.create_client(client)
 
 
 @click.command()
 @click.pass_context
 def list(ctx):
     """List all clients"""
-    pass
+    client_service = ClientService(ctx.obj['clients_table'])
+
+    clients_list = client_service.list_clients()
+
+    click.echo('ID   |  NAME  |    COMPANY |   EMAIL   |   POSITION')
+    click.echo('*'*100)
+
+    for client in clients:
+        click.echo('{uid}    |   {name}  |   {company}   |   {email} |   {position}'.format(
+            uid = client['uid'],
+            name = client['name'],
+            company = client['company'],
+            email = client['email'],
+            position = client['position']))
 
 
 @clients.command()
